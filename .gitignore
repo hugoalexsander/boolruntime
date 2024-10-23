@@ -1,0 +1,6 @@
+.idea/
+*.class
+output.txt
+input.txt
+input/
+bin/
