@@ -1,15 +1,19 @@
 package boolruntime.interpreter;
 
 public class Instructions{
-    public static void constnumber(){
-
+    private Instructions(){
+        throw new UnsupportedOperationException("Esta classe não pode ser instanciada.");
+    }
+    
+    public static void constnumber(Integer number){
+        
     }
 
     public static void load(String name){
-
+        
     }
     
-    public static void store(){
+    public static void store(String name){
         
     }
 
@@ -29,15 +33,15 @@ public class Instructions{
         
     }
 
-    public static void newclass(){
+    public static void newclass(String className){
         
     }
 
-    public static void get(){
+    public static void get(String name){
         
     }
 
-    public static void set(){
+    public static void set(String name){
         
     }
 
@@ -48,32 +52,39 @@ public class Instructions{
     public static void gt(){
         
     }
+    
     public static void ge(){
         
     }
+    
     public static void lt(){
         
     }
+
     public static void le(){
         
     }
+    
     public static void eq(){
         
     }
+    
     public static void ne(){
         
     }
+
     public static void pop(){
         
     }
     
-    public static void ifn(){
+    public static void ifn(Integer n){
         
     }
 
-    public static void elsen(){
+    public static void elsen(Integer n){
         
     }
+    
     public static void ret(){
         
     }

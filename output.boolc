@@ -1,102 +1,25 @@
 load var
 load baa
 eq
-if <N>
-load hello
-load variavel
-set _prototype
-const 9823
-store teste
-load banana
-store picles
-load pao
-get garrafa
-store girafa
-load toma
-call oie
-store keisso
-load coisas
-load self
-call fazer
-store abobrinha
-new Klassi
-store olhaclasse
-const 31415
-load vhis
-set ata
-end-if
+if 0
+load forma
+call quente
+store pao
 load casa
 load janela
 le
-if <N>
+if 3
 load pedra
 load carro
 set aviao
-load gol
-get rede
-load uva
-set molho
-load rio
-call agua
-load rua
-set pais
-load abc
-load def
-load mg
-call vamu
-load lua
-set marte
-new Person
-load bola
-set quadrada
-load mat
-load fis
-add
-store biologia
-load kabum
-load polvora
-sub
-store balao
-load rato
-load atum
-mul
-store tank
-load prof
-load madeira
-div
-store leizer
-else <N>
+else 10
 load escada
 load degrau
 add
 load nariz
 set orelha
-load sacada
-load parapeito
-sub
-load olho
-set boca
-load helice
-load leite
-mul
-load boneca
-set cabelo
-load mouse
-load mesa
-div
-load garrafa
-set celular
-new Paralelepipedo
-load chama
-call ai
-pop
-load maisum
-load maisdois
-load maistres
-load maisquatro
-load nao
-call quero
-pop
-load retornudo
-ret
-end-if
+load escada
+load degrau
+add
+load nariz
+set orelha

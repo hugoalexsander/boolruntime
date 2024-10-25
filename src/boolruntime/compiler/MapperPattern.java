@@ -4,15 +4,6 @@ import java.util.regex.*;
 
 
 public class MapperPattern{
-    private static class Rule{
-        public final String pattern;
-        public final Function<String, String> mapper;
-        public Rule(String pattern, Function<String, String> mapper){
-            this.pattern = pattern;
-            this.mapper = mapper;
-        }
-    }
-    
     private static final Rule rules[] = {
         new Rule("^\\s*[a-zA-Z]+\\._prototype\\s*=\\s*[a-zA-Z]+\\n$", MapperPattern::prototypeEqVar),
         new Rule("^\\s*[a-zA-Z]+\\s*=\\s*[0-9]+\\n$", MapperPattern::varEqNum),
@@ -36,6 +27,10 @@ public class MapperPattern{
         new Rule("^\\s*else\\n$", MapperPattern::elseCase),
         new Rule("^\\s*return\\s*[a-zA-Z]+\\n$", MapperPattern::returnCase)
     };
+
+    private MapperPattern(){
+        throw new UnsupportedOperationException("Esta classe não pode ser instanciada.");
+    }
 
     public static String getMapping(String input){
         for (Rule rule : rules) {
@@ -274,12 +269,12 @@ public class MapperPattern{
         rt += "load " + matcher.group(1) + "\n";
         rt += "load " + matcher.group(3) + "\n";
         rt += matcher.group(2) + "\n";
-        rt += "if <N>\n";
+        rt += "if <n>\n";
         return rt;
     }
 
     private static String elseCase(String input){
-        return "else <N>\n";
+        return "else <n>\n";
     }
     
     private static String returnCase(String input){
@@ -290,5 +285,15 @@ public class MapperPattern{
         rt += "load " + matcher.group(1) + "\n";
         rt += "ret\n";
         return rt;
+    }
+
+    private static class Rule{
+        private final String pattern;
+        private final Function<String, String> mapper;
+        
+        public Rule(String pattern, Function<String, String> mapper){
+            this.pattern = pattern;
+            this.mapper = mapper;
+        }
     }
 }
