@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.*;
 
+
 public class Mapper {
     private static String input;
     private static String output;
@@ -119,7 +120,7 @@ public class Mapper {
 
     private static void clearFile(String output) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(output))) {
-
+            writer.write("class io\nvars rt\nmethod print(x)\nconst 0\nstore rt\nload x\nprin\nload rt\nret\nend-method\nend-class\n");
         } catch (IOException e) {
             System.out.println("Erro ao limpar o arquivo de saída!");
         }

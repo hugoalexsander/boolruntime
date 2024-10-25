@@ -11,11 +11,6 @@ public class Variable{
     private Integer value;
     private Type type;
 
-    public Variable(Integer value){
-        this.value = value;
-        this.type = Type.UNDEFINED;
-    }
-
     public Variable(Integer value, Type type){
         this.value = value;
         this.type = type;

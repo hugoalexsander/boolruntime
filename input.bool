@@ -1,9 +1,8 @@
-if var eq baa then
-end-if
-pao = forma.quente()
-if casa le janela then
-carro.aviao     =                    pedra
-else
-        nariz.orelha = escada + degrau
-nariz.orelha = escada + degrau
-end-if
+main()
+    vars a, b, c
+    begin
+    a = 10
+    b = 5
+    c = a + b
+    io.print(c)    
+end

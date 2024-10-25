@@ -1,25 +1,27 @@
-load var
-load baa
-eq
-if 0
-load forma
-call quente
-store pao
-load casa
-load janela
-le
-if 3
-load pedra
-load carro
-set aviao
-else 10
-load escada
-load degrau
+class io
+vars rt
+method print(x)
+const 0
+store rt
+load x
+prin
+load rt
+ret
+end-method
+end-class
+main()
+vars a,b,c
+begin
+const 10
+store a
+const 5
+store b
+load a
+load b
 add
-load nariz
-set orelha
-load escada
-load degrau
-add
-load nariz
-set orelha
+store c
+load c
+load io
+call print
+pop
+end

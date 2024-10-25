@@ -17,6 +17,7 @@ public class Object{
     public static Integer createObject(String className){
         Integer code = counter;
         Memory.insertObject(code, new Object(className));
+        GarbageCollector.newObjectColor(code);
         counter++;
         return code;
     }
@@ -25,7 +26,11 @@ public class Object{
         return this.className;
     }
     
-    public Integer getAttributeValue(String name){
-        return this.attributes.get(name).getValue();
+    public Variable getAttributeValue(String name){
+        return this.attributes.get(name);
+    }
+
+    public HashMap<String, Variable> getAttributes(){
+        return this.attributes;
     }
 }

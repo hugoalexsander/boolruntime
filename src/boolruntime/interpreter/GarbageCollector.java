@@ -13,7 +13,7 @@ public class GarbageCollector{
         throw new UnsupportedOperationException("Esta classe não pode ser instanciada.");
     }
 
-    public void mark(){
+    public static void mark(){
         List<Variable> refs = Memory.getAllVariables();
         for(Variable ref : refs){
             if(ref.getType() == Type.REFERENCE){
@@ -22,7 +22,7 @@ public class GarbageCollector{
         }
     }
 
-    public void sweep(){
+    public static void sweep(){
         for(Map.Entry<Integer, Color> entry : objectColor.entrySet()){
             if(!(currentColor.equals(entry.getValue())))
                 Memory.removeObject(entry.getKey());
@@ -35,7 +35,7 @@ public class GarbageCollector{
         }
     }
 
-    public void newObjectColor(Integer code){
+    public static void newObjectColor(Integer code){
         objectColor.put(code, Color.GRAY);
     }
 
