@@ -1,1 +1,0 @@
-java -cp bin boolruntime.Main input.bool output.boolc

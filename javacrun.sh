@@ -1,1 +1,0 @@
-javac -d bin $(find src/boolruntime/ -name "*.java")
