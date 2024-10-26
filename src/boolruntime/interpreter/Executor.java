@@ -47,7 +47,7 @@ public class Executor{
     private static void init(String inputFile){
         input = inputFile;
         Model.init(input);
-        Memory.startMainScope();
+        //Memory.startMainScope();
     }
 
     private static String getLineFile(){
