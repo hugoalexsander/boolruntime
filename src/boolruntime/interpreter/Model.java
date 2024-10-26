@@ -16,7 +16,7 @@ public class Model{
         throw new UnsupportedOperationException("Esta classe não pode ser instanciada.");
     }
 
-    public static void init(String input){
+    static void init(String input){
         try(Scanner scanner = new Scanner(Paths.get(input))) {
             Integer lineInt = 0;
             String line = scanner.nextLine();
@@ -41,40 +41,32 @@ public class Model{
                         if(varsLineFlag(line)){
                             classAtributes = varsExtract(line);
                         }
-                        while(scanner.hasNextLine() && !line.matches("\\s*end-class\\s*")){
-                            line = scanner.nextLine();
-                            lineInt++;
-                            if(methodLineFlag(line)){
-                                Integer methodLine = lineInt;
-                                String methodName = methodNameExtract(line);
-                                Queue<String> arguments = argumentsExtract(line);
-                                List<String> elements = new ArrayList<>();
-                                if(scanner.hasNextLine() && !line.matches("\\s*end-class\\s*")){
-                                    line = scanner.nextLine();
-                                    lineInt++;
-                                    if(varsLineFlag(line)){
-                                        elements = varsExtract(line);
-                                    }
-                                }
-                                map.put(className + "|" + methodName, new Definition(elements, arguments, methodLine));
-                            }
-                        }                        
                     }
+                    while(scanner.hasNextLine() && !line.matches("\\s*end-class\\s*")){
+                        if(methodLineFlag(line)){
+                            Integer methodLine = lineInt;
+                            String methodName = methodNameExtract(line);
+                            Queue<String> arguments = argumentsExtract(line);
+                            List<String> elements = new ArrayList<>();
+                            if(scanner.hasNextLine() && !line.matches("\\s*end-method\\s*")){
+                                line = scanner.nextLine();
+                                lineInt++;
+                                if(varsLineFlag(line)){
+                                    elements = varsExtract(line);
+                                }
+                            }
+                            elements.add("self");
+                            map.put(className + "|" + methodName, new Definition(elements, arguments, methodLine));
+                            
+                        }
+                        line = scanner.nextLine();
+                        lineInt++;
+                    }                        
+                    classAtributes.add("_prototype");
                     map.put(className, new Definition(classAtributes));
                 }
                 line = scanner.nextLine();
                 lineInt++;
-            }
-            for(Map.Entry<String, Definition> entryMap : map.entrySet()){
-                System.out.println(entryMap.getKey());
-                for(String a : entryMap.getValue().elements){
-                    System.out.println(a);
-                }
-                for(String a : entryMap.getValue().arguments){
-                    System.out.println(a);
-                }
-                System.out.println(entryMap.getValue().line);
-                System.out.println("");
             }
         } catch(Exception e) {
             System.out.println("Arquivo inviável!");
@@ -150,24 +142,48 @@ public class Model{
         return arguments;
     }
 
-    public static List<String> getClassElements(String className){
-        return map.get(className).elements;
+    static Integer getMainLine(){
+        return map.get("main").line;
     }
 
-    public static Integer getClassLine(String className){
-        return map.get(className).line;
+    static List<String> getClassElements(String className){
+        if(map.containsKey(className)) return map.get(className).elements;
+        else return null;
     }
 
-    public static List<String> getMethodElements(String className, String methodName){
-        return map.get(className + "|" + methodName).elements;
+    static Integer getClassLine(String className){
+        if(map.containsKey(className)) return map.get(className).line;
+        else return null;
     }
 
-    public static Integer getMethodLine(String className, String methodName){
-        return map.get(className + "|" + methodName).line;
+    static List<String> getMethodElements(String className, String methodName){
+        if(map.containsKey(className + "|" + methodName)) return map.get(className + "|" + methodName).elements;
+        else return null;
     }
 
-    public static Queue<String> getMethodArguments(String className, String methodName){
-        return map.get(className + "|" + methodName).arguments;
+    static Integer getMethodLine(String className, String methodName){
+        if(map.containsKey(className + "|" + methodName)) return map.get(className + "|" + methodName).line;
+        else return null;
+    }
+
+    static Queue<String> getMethodArguments(String className, String methodName){
+        if(map.containsKey(className + "|" + methodName)) return map.get(className + "|" + methodName).arguments;
+        else return null;
+    }
+
+    static void debugPrint(){
+        for(Map.Entry<String, Definition> entryMap : map.entrySet()){
+            System.out.println(entryMap.getKey());
+            System.out.print("Elementos: ");
+            for(String a : entryMap.getValue().elements){
+                System.out.print(a + " ");
+            }
+            System.out.print("\nArgumentos: ");
+            for(String a : entryMap.getValue().arguments){
+                System.out.print(a + " ");
+            }
+            System.out.println("\n" + entryMap.getValue().line + "\n");
+        }
     }
 
     private static class Definition{

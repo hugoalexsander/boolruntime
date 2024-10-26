@@ -1,6 +1,8 @@
 package boolruntime.interpreter;
 import java.util.function.Consumer;
+import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 
 public class Instructions{
@@ -33,7 +35,7 @@ public class Instructions{
         throw new UnsupportedOperationException("Esta classe não pode ser instanciada.");
     }
 
-    public static void caller(String instruction, String parameter){
+    static void caller(String instruction, String parameter){
         callerMap.get(instruction).accept(parameter);
     }
 
@@ -109,6 +111,7 @@ public class Instructions{
     }
 
     private static void call(String name){
+        List<String> args = new ArrayList<>();
         Variable objectCode = Memory.remove();
         Variable primalObject = new Variable(objectCode.getValue(), objectCode.getType());
         Object object = Memory.getObject(objectCode.getValue());
@@ -121,7 +124,10 @@ public class Instructions{
         Memory.startScope(object.getClassName(), name);
         Memory.setVar("self", primalObject);
         for(String argument : Model.getMethodArguments(object.getClassName(), name)){
-            Memory.setVar(argument, Memory.remove());
+            args.add(argument);
+        }
+        for(int i = args.size() - 1; i >= 0; i--){
+            Memory.setVar(args.get(i), Memory.remove());
         }
         Executor.enterScope(methodLine);
     }
@@ -224,6 +230,7 @@ public class Instructions{
     }
     
     private static void ret(String empty){
+        Memory.endScope();
         Executor.exitScope();
     }
 

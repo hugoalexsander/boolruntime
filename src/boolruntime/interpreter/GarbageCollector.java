@@ -1,4 +1,5 @@
 package boolruntime.interpreter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -13,7 +14,12 @@ public class GarbageCollector{
         throw new UnsupportedOperationException("Esta classe não pode ser instanciada.");
     }
 
-    public static void mark(){
+    static void gcCall(){
+        mark();
+        sweep();
+    }
+
+    static void mark(){
         List<Variable> refs = Memory.getAllVariables();
         for(Variable ref : refs){
             if(ref.getType() == Type.REFERENCE){
@@ -22,11 +28,15 @@ public class GarbageCollector{
         }
     }
 
-    public static void sweep(){
+    static void sweep(){
+        List<Integer> targets = new ArrayList<>();
         for(Map.Entry<Integer, Color> entry : objectColor.entrySet()){
             if(!(currentColor.equals(entry.getValue())))
-                Memory.removeObject(entry.getKey());
-                objectColor.remove(entry.getKey());
+                targets.add(entry.getKey());
+        }
+        for(Integer target : targets){
+            Memory.removeObject(target);
+            objectColor.remove(target);
         }
         if(currentColor.equals(Color.RED)){
             currentColor = Color.BLACK;
@@ -35,7 +45,7 @@ public class GarbageCollector{
         }
     }
 
-    public static void newObjectColor(Integer code){
+    static void newObjectColor(Integer code){
         objectColor.put(code, Color.GRAY);
     }
 
@@ -44,4 +54,13 @@ public class GarbageCollector{
         GRAY,
         BLACK
     };
+
+    static void debugPrint(){
+        for(Map.Entry<Integer, Color> entry : objectColor.entrySet()){
+            Integer key = entry.getKey();
+            Color color = entry.getValue();
+
+            System.out.println("- Object key : " + key + " - Color : " + color);
+        }
+    }
 }

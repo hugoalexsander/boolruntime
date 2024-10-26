@@ -1,10 +1,11 @@
-class io
-vars rt
+class Output
 method print(x)
-const 0
-store rt
+vars rt
+begin
 load x
 prin
+const 0
+store rt
 load rt
 ret
 end-method
@@ -12,27 +13,38 @@ end-class
 class Base
 vars id
 method showid()
-vars x
+vars x,y
 begin
 const 10
 load self
 set id
+const 10
+store y
 load self
 get id
+store x
+load y
+load x
+eq
+if 4
+load x
+load io
+call print
+pop
+else 6
+const 0
 store x
 load x
 load io
 call print
 pop
-const 0
-store x
 load x
 ret
 end-method
 end-class
 class Pessoa
 vars num
-method calc(x)
+method calc(x,l,k)
 vars y,z
 begin
 load self
@@ -42,10 +54,6 @@ load x
 load z
 add
 store y
-load y
-load io
-call print
-pop
 new Base
 store y
 load y
@@ -53,12 +61,16 @@ ret
 end-method
 end-class
 main()
-vars p,b,x
+vars p,b,x,n,m
 begin
+const 8
+store x
 new Base
 store b
 new Pessoa
 store p
+new Pessoa
+pop
 load b
 load p
 set _prototype
@@ -71,13 +83,18 @@ set num
 const 321
 load p
 set id
+const 8
+store p
 const 1024
 store x
-load p
-call showid
-pop
+const 30
+store n
+const 8
+store m
+const 5
+store x
 load x
-load p
-call calc
+load io
+call print
 pop
 end

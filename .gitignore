@@ -1,6 +1,8 @@
 .idea/
+bin/
 *.class
 output.txt
 input.txt
-input/
-bin/
+javacrun.sh
+javarun.sh
+run.sh

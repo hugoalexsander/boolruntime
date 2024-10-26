@@ -32,7 +32,7 @@ public class MapperPattern{
         throw new UnsupportedOperationException("Esta classe não pode ser instanciada.");
     }
 
-    public static String getMapping(String input){
+    static String getMapping(String input){
         for (Rule rule : rules) {
             if (input.matches(rule.pattern)) {
                 return rule.mapper.apply(input);
@@ -111,6 +111,7 @@ public class MapperPattern{
         Matcher matcher = pattern.matcher(input);
         matcher.matches();
         rt += objCreation(matcher.group(2) + "\n");
+        rt = rt.replaceAll("pop\\n", "");
         rt += "store " + matcher.group(1) + "\n";
         return rt;
     }
@@ -199,6 +200,7 @@ public class MapperPattern{
         Matcher matcher = pattern.matcher(input);
         matcher.matches();
         rt += matcher.group(3) + "\n";
+        rt = rt.replaceAll("pop\\n", "");
         rt += "load " + matcher.group(1) + "\n";
         rt += "set " + matcher.group(2) + "\n";
         return rt;
@@ -231,6 +233,7 @@ public class MapperPattern{
         Matcher matcher = pattern.matcher(input);
         matcher.matches();
         rt += "new " + matcher.group(1) + "\n";
+        rt += "pop\n";
         return rt;
     }
 

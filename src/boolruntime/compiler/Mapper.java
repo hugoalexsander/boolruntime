@@ -120,12 +120,12 @@ public class Mapper {
 
     private static void clearFile(String output) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(output))) {
-            writer.write("class io\nvars rt\nmethod print(x)\nconst 0\nstore rt\nload x\nprin\nload rt\nret\nend-method\nend-class\n");
+            writer.write("class Output\nmethod print(x)\nvars rt\nbegin\nload x\nprin\nconst 0\nstore rt\nload rt\nret\nend-method\nend-class\n");
         } catch (IOException e) {
             System.out.println("Erro ao limpar o arquivo de saída!");
         }
     }
-
+    
     private static void writeToFile(String line, String output) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(output, true))) {
             String tmp = MapperPattern.getMapping(line);
