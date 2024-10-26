@@ -1,4 +1,4 @@
 # Bool Runtime
 
-Comando para compilar:
+Comando para compilar:\n
 javac -d bin $(find src/boolruntime/ -name "*.java")
